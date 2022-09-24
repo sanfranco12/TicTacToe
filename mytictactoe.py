@@ -1,3 +1,8 @@
+from ast import For
+from secrets import choice
+import colorama 
+from colorama import Fore
+colorama.init()
 def main():
     player = next_player("")
     boardx3 = create_boardx3()
@@ -6,12 +11,11 @@ def main():
     print()
 
     display_to_use = input("What board\'s size would you like to use? 3x3 / 4x4 / 5x5, please enter a number 3, 4 or 5: ")
-
     if display_to_use == "3":
-        print("funciona!!!")
-        while not (has_a_winnerx3(boardx3) or is_a_drawx3(boardx3)):
+        while not (has_a_winnerx3(boardx3) or is_a_drawx3(boardx3)): 
+            print() 
             display_boardx3(boardx3)
-            make_movex3(player, boardx3)
+            make_movex3(player,boardx3)
             player = next_player(player)
         display_boardx3(boardx3)
         print("Good game. Thanks for playing!") 
@@ -36,7 +40,7 @@ def create_boardx3():
     board = []
     for square in range(9):
         board.append(square + 1)
-    return board  
+    return board
 
 def create_boardx4():
     board = []
@@ -51,11 +55,10 @@ def create_boardx5():
     return board
 
 def display_boardx3(board):
-    print()
     print(f"{board[0]}|{board[1]}|{board[2]}")
-    print("-----------")
+    print("-----")
     print(f"{board[3]}|{board[4]}|{board[5]}")
-    print("-----------")
+    print("-----")
     print(f"{board[6]}|{board[7]}|{board[8]}")
 
 def display_boardx4(board):
@@ -185,18 +188,27 @@ def has_a_winnerx5(board):
             board[13] == board[17] == board[21] or
             board[14] == board[18] == board[22])
 
+def colors(player):
+    if player == "x":
+        turn = int(input(Fore.BLUE + f"{player}'s turn to choose a square: "))
+        return turn
+    else:
+        turn = int(input(Fore.RED + f"{player}'s turn to choose a square: "))      
+        return turn
+    
 def make_movex3(player, board):
-    square = int(input(f"{player}'s turn to choose a square (1-9): "))       
+    square = colors(player)
     board[square - 1] = player
     
+    
 def make_movex4(player, board):
-    square = int(input(f"{player}'s turn to choose a square (1-16): "))       
+    square = colors(player)
     board[square - 1] = player
     
 def make_movex5(player, board):
-    square = int(input(f"{player}'s turn to choose a square (1-25): "))       
+    square = colors(player)
     board[square - 1] = player
-
+    
 def next_player(current):
     x = "x"
     o = "o"
